@@ -20,8 +20,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    -webkit-animation: fadein .5s forwards 1 ease;
-    animation: fadein .5s forwards 1 ease
+    -webkit-animation: pb-fadein .5s forwards 1 ease;
+    animation: pb-fadein .5s forwards 1 ease
 }
 
 .pb-overlay-fixed{
@@ -42,88 +42,18 @@
     box-shadow: 0 4px 16px 0 rgba(0,0,0,.15),0 0 0 1px rgba(0,0,0,.1)
 }
 
-.pb-body-fadein{
-    -webkit-animation: pb-body-fadein .5s forwards 1 ease;
-    animation: pb-body-fadein .5s forwards 1 ease
-}
-
-.pb-body-fadeout{
-    -webkit-animation: pb-body-fadeout .5s forwards 1 ease;
-    animation: pb-body-fadeout .5s forwards 1 ease
-}
-
-
-@-webkit-keyframes pb-body-fadein {
-    from {
-        -webkit-transform: scale(.75);
-        transform: scale(.75);
-        opacity: 0
-    }
-
-    to {
-        -webkit-transform: scale(1);
-        transform: scale(1);
-        opacity: 1
-    }
-}
-
-@keyframes pb-body-fadein {
-    from {
-        -webkit-transform: scale(.75);
-        transform: scale(.75);
-        opacity: 0
-    }
-
-    to {
-        -webkit-transform: scale(1);
-        transform: scale(1);
-        opacity: 1
-    }
-}
-
-@-webkit-keyframes pb-body-fadeout {
-    from {
-        -webkit-transform: scale(1);
-        transform: scale(1);
-        opacity: 1
-    }
-
-    to {
-        -webkit-transform: scale(.75);
-        transform: scale(.75);
-        opacity: 0
-    }
-}
-
-@keyframes pb-body-fadeout {
-    from {
-        -webkit-transform: scale(1);
-        transform: scale(1);
-        opacity: 1
-    }
-
-    to {
-        -webkit-transform: scale(.75);
-        transform: scale(.75);
-        opacity: 0
-    }
-}
-
 .pb-progress {
     position: relative; /* added to center on-bar info */
     background-color: rgba(0,0,0,.1);
     border-radius: 2px;
-    x-height: 48px;
     width: 100%;
     overflow: hidden
 }
 
 .pb-bar {
-    x-background-color: #00A02D;
     display: block;
     height: 100%;
     border-radius: 2px;
-    x-transition: width .5s ease-in-out;
     width: 0%;
     position: relative;
     background-image: linear-gradient(180deg,rgba(255,255,255,.1),rgba(255,255,255,0))
@@ -137,13 +67,7 @@
     right: 0;
     bottom: 0
 }
-/*
-.pb-bar:after {
-    background-size: 16px 16px;
-    background-image: linear-gradient(135deg,rgba(255,255,255,.1) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.1) 50%,rgba(255,255,255,.1) 75%,transparent 75%,transparent);
-    -webkit-animation: pb-stripes 1s linear infinite;
-    animation: pb-stripes 1s linear infinite
-}*/
+
 .pb-animated-stripes:after{
     background-size: 16px 16px;
     background-image: linear-gradient(135deg,rgba(255,255,255,.1) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.1) 50%,rgba(255,255,255,.1) 75%,transparent 75%,transparent);

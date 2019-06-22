@@ -10,13 +10,37 @@ function apexProgressBar(itemName){
         progressBar.$barElem.stop(true);
     };
 
-    var setValue = function(value){
-        //depending on the option chosen by the user
-        progressBar.$valNode.val(value);
+    var setValue = function(values){
+
+        var val = '';
+        if(!values){
+            val = '0';
+        } else {
+            if(values.percentage){
+                val = '' + values.percentage;
+            }
+            if(values.message){
+                val = (val ? (val + ':' + values.message) : values.message);
+            }
+        }
+
+        progressBar.$valNode.val(val);
     };
 
     var getValue = function(){
         return progressBar.$valNode.val();
+    };
+
+    var getPercentage = function(){
+        return progressBar.currentPercentage;
+    };
+
+    var getMessage = function(){
+        return progressBar.currentMessage;
+    };
+
+    var getColor = function(){
+        return progressBar.currentColor;
     };
 
     var clear = function(){
@@ -29,30 +53,48 @@ function apexProgressBar(itemName){
     };
 
     var setValues = function(values, options){
-        //value = {percentage: number, message: string, duration: number, color: string, options: object}
-        //lOptions = $.extend( lDefaults, pOptions );
 
+        //defaults
         var valuesDefaults = {
             percentage: progressBar.currentPercentage,
-            message: progressBar.currentMessage,
-            color: 'rgb(64, 64, 64)', //progressBar.currentColor,
-            duration: 500
+            message:    progressBar.currentMessage,
+            color:      progressBar.currentColor,
+            duration:   500
         };
 
         var optionsDefaults = {
-            immediate: false
+            immediate:  false
         };
 
-        values = $.extend(valuesDefaults, values);
+        values =  $.extend(valuesDefaults,  values);
         options = $.extend(optionsDefaults, options);
 
+        //validations
+        if(!values.percentage && values.percentage != 0){
+            percentage = 0;
+        } else {
+            values.percentage = parseInt(values.percentage);
+        }
+        
+        if(values.percentage < 0 || values.percentage > 100){
+            throw new Error('Progress Bar percentage must be between 0 and 100');
+        }
+
+        values.duration = parseInt(values.duration);
+
+        if(values.duration < 0){
+            throw new Error('Animation duration cannot be less than 0 milliseconds');
+        }
+
+        //if immediate, stop animation pending animations and perform this one
         if(options.immediate){
             stop();
         }
 
+        //perform the animation
         progressBar.$barElem.animate(
             {
-                width: values.percentage+'%',
+                width: values.percentage + '%',
                 backgroundColor: values.color
             },
             {
@@ -74,10 +116,10 @@ function apexProgressBar(itemName){
             }
         );
 
-        setValue(values.percentage + ':' + values.message);
+        setValue({percentage: values.percentage, message: values.message});
         progressBar.currentPercentage = values.percentage;
-        progressBar.currentMessage = values.message;
-        progressBar.currentColor = values.color;
+        progressBar.currentMessage    = values.message;
+        progressBar.currentColor      = values.color;
 
     };
 
@@ -92,6 +134,9 @@ function apexProgressBar(itemName){
     if(progressBar){
         return {
             getValue: getValue,
+            getPercentage: getPercentage,
+            getMessage: getMessage,
+            getColor: getColor,
             clear: clear,
             setValues: setValues,
             finish: finish,
@@ -101,47 +146,25 @@ function apexProgressBar(itemName){
         };
     } else {
         return {
-            init: function(options){
+            init: function(initialValues, options){
+
                 apex.item.create(itemName, {
                     getValue: function() {
                         return apexProgressBar(itemName).getValue();
                     },
                     setValue: function( pValue, pDisplayValue ) {
 
-                        //in case of "Clear", we don't show any animation
+                        //in case of "Clear"
                         if(pValue == null || pValue == ''){
                             apexProgressBar(itemName).clear();
                             return;                            
                         }
-                        
-                        //in case pValue is a number, we make it a string
-                        pValue = '' + pValue;
-                        
-                        //translating the new value into percentage, message, and an optional animation duration
 
-                        var data = pValue.split(':');
+                        //splitting into percentage, message, and an optional animation duration
+                        var data = pValue.toString().split(':');
                         var percentage = data[0];
                         var message = data[1];
                         var duration = data[2];
-                        
-                        if(!percentage && percentage != 0){
-                            percentage = 0;
-                        } else {
-                            percentage = parseInt(percentage);
-                        }
-                        
-                        if(percentage < 0 || percentage > 100){
-                            throw new Error('Progress Bar percentage must be between 0 and 100');
-                        }
-                        
-                        if(!duration && duration != '0'){
-                            duration = 500;
-                        } else {
-                            duration = parseInt(duration);
-                        }
-                        
-                        //setting the internal item value
-                        //this.node.value = percentage + (message ? (':' + message) : '');
 
                         apexProgressBar(itemName).setValues({
                             percentage: percentage,
@@ -151,7 +174,7 @@ function apexProgressBar(itemName){
                     }
                 });
 
-                if(options.isHidden){
+                if(options.hidden){
                     apex.item(itemName).hide();
                 }
 
@@ -162,17 +185,15 @@ function apexProgressBar(itemName){
                     $prcElem: $('#' + itemName + '-wrapper .pb-label-percentage'),
                     $msgElem: $('#' + itemName + '-wrapper .pb-label-message'),
 
-                    initialValue: '',
-                    initialPercentage: '',
-                    initialMessage: '',
-                    initialColor: '',
+                    initialValue:      initialValues.value,
+                    initialPercentage: initialValues.percentage,
+                    initialMessage:    initialValues.message,
+                    initialColor:      initialValues.color,
 
-                    currentValue: '',
-                    currentPercentage: '',
-                    currentMessage: '',
-                    currentColor: ''
+                    currentPercentage: initialValues.percentage,
+                    currentMessage:    initialValues.message,
+                    currentColor:      initialValues.color
                 };
-
             }
         };
     }
