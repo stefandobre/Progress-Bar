@@ -1,7 +1,7 @@
 {
   "name" : "Progress Bar",
   "version" : "1.0",
-  "description" : "This is an item type, progress bar plug-in. It features options such as different sizes, styles, animations and positions. You can display the percentage and an optional message on top or below the bar. Changing these can be done declaratively, or using the many granular JavaScript controls included.",
+  "description" : "This is an item type, progress bar plug-in. It features options such as different sizes, styles, animations and positions. You can display the percentage and an optional message on top or below the bar. Changing these values can be done declaratively, or using the many granular JavaScript controls included.",
   "keywords" : ["progress", "bar", "loading"],
   "homepage" : "https://www.github.com/stefandobre",
   "license" : "MIT",
@@ -21,7 +21,7 @@
       "plugin" : {
         "internalName" : "COM.STEFANDOBRE.PROGRESSBAR",
         "type" : "item",
-        "demo" : "https://apex.oracle.com/pls/apex/f?p=60314:3",
+        "demo" : "https://apex.oracle.com/pls/apex/f?p=60314:20",
         "previewImage" : "https://repository-images.githubusercontent.com/184486309/35f1cb00-957d-11e9-91f9-1a441e042faf"
       }
     }
