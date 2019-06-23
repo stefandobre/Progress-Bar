@@ -3,7 +3,7 @@
   "version" : "1.0",
   "description" : "This is an item type, progress bar plug-in. It features options such as different sizes, styles, animations and positions. You can display the percentage and an optional message on top or below the bar. Changing these values can be done declaratively, or using the many granular JavaScript controls included.",
   "keywords" : ["progress", "bar", "loading"],
-  "homepage" : "https://www.github.com/stefandobre",
+  "homepage" : "https://www.github.com/stefandobre/Progress-Bar",
   "license" : "MIT",
   "author" : {
     "name" : "Stefan Dobre",
