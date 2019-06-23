@@ -1,2 +1,3 @@
-# Progress-Bar
-An Oracle APEX Progress Bar Plug-in
+# Oracle APEX Plug-in: Progress Bar
+
+
