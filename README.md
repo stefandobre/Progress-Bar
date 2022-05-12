@@ -1,3 +1,8 @@
+# Plug-in archived!
+
+This plug-in is no longer maintained. Please refer to the [FOS Progess Bar](https://fos.world/ords/f?p=10000:4040), which is maintained and offers support.
+
+
 # Oracle APEX Plug-in: Progress Bar
 
 ![](https://img.shields.io/badge/Type-Item-orange.svg) ![](https://img.shields.io/badge/APEX-18.2-success.svg) ![](https://img.shields.io/badge/APEX-19.1-success.svg)
